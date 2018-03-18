@@ -1,0 +1,3 @@
+{% for appointment in appointments %}
+  {{appointment.patient.username}} - {{appointment.doctor.username}} - {{appointment.receptionist.username}} - {{appointment.appointment_time}}<br>
+{% endfor %}

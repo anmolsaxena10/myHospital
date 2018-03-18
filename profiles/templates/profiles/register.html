@@ -1,0 +1,10 @@
+<form action='/profiles/do_register/' method='POST'>
+  {% csrf_token %}
+  Username: <input type="text" name="username">
+  Password: <input type="password" name="password">
+  Contact: <input type="number" name="contact_no">
+  Address: <input type="text" name="address">
+  DOB: <input type="date" name="dob">
+  Blood: <input type="text" name="blood_group">
+  <input type="submit">
+</form>

@@ -1,0 +1,15 @@
+<form action='/appointments/do_book' method="POST">{%csrf_token%}
+  <select name='doctor'>
+    {% for doctor in doctors %}
+    <option value='{{doctor.username}}'>{{doctor.username}}</option>
+    {% endfor %}
+  </select>
+<br>
+  <select name='patient'>
+    {% for patient in patients %}
+      <option value='{{patient.username}}'>{{patient.username}}</option>
+    {% endfor %}
+  </select><br>
+  <input type='date' name='appointment_date'><input type='time' name='appointment_time'>
+  <br><input type='submit'>
+</form>
