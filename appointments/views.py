@@ -7,6 +7,8 @@ from .models import Appointment
 from datetime import datetime
 from home.context_processors import hasGroup
 # Create your views here.
+
+#CREATE
 @login_required
 def book(request):
     c = {}
@@ -27,6 +29,8 @@ def doBook(request):
         appointment.save()
     return HttpResponseRedirect('/home')
 
+
+#RETRIEVE
 @login_required
 def view(request):
     c = {}
@@ -37,14 +41,31 @@ def view(request):
         c['appointments'] = Appointment.objects.filter(patient=user)
     return render(request, 'appointments/view_all.html', c)
 
+
+#UPDATE
 @login_required
 def changeAppointment(request, id):
     user = request.user
     if hasGroup(user, 'receptionist'):
         c = {'appointment': Appointment.objects.get(pk=id)}
+        c.update(csrf(request))
         return render(request, 'appointments/change.html', c)
     return HttpResponseRedirect('/home')
 
 @login_required
 def doChange(request):
-    
+    user = request.user
+    if hasGroup(user, 'receptionist'):
+        appointment = Appointment.objects.get(pk=int(request.POST.get('id')))
+        appointment.patient = User.objects.get(username=request.POST.get('patient', ''))
+        appointment.doctor = User.objects.get(username=request.POST.get('doctor', ''))
+        #appointment.appointment_time = datetime(*[int(v) for v in request.POST.get('appointment_time').replace('T', '-').replace(':', '-').split('-')])
+        appointment.save()
+    return HttpResponseRedirect('/home')
+
+#DELETE
+def delete(request, id):
+    user = request.user
+    if hasGroup(user, 'receptionist'):
+        Appointment.objects.get(id=id).delete()
+    return HttpResponseRedirect('/home')

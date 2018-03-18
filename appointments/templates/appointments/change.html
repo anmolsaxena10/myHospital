@@ -1,1 +1,8 @@
-{{appointment.patient.username}} - {{appointment.doctor.username}} - {{appointment.receptionist.username}} - {{appointment.appointment_time}}
+<form action='/appointments/do_change/' method='POST'>{% csrf_token %}
+  <input type='number' name='id' value='{{appointment.pk}}'>
+  <input type='text' name='patient' value='{{appointment.patient.username}}'>
+  <input type='text' name='doctor' value='{{appointment.doctor.username}}'>
+  <input type='text' name='receptionist' value='{{appointment.receptionist.username}}'>
+  <input type='text' name='appointment_time' value='{{appointment.appointment_time}}'>
+  <input type="submit">
+</form>

@@ -7,5 +7,7 @@ urlpatterns = [
     path('', view),
     path('book/', book),
     path('do_book/', doBook),
-    url(r'change_appointment/(?P<id>\d+)/', changeAppointment)
+    url(r'change_appointment/(?P<id>\d+)/', changeAppointment),
+    path('do_change/', doChange),
+    url(r'delete/(?P<id>\d+)/', delete),
 ]
