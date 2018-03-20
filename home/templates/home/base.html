@@ -1,4 +1,47 @@
-{{hii}}<br>
-{% for item,url in menu.items %}
-  {{item}} - {{url}}<br>
-{% endfor %}
+{% load static %}
+
+<html>
+	<head>
+		<title>{% block title %} {% endblock %}</title>
+		<!--<link rel="icon" href="imageset/favicon.png">-->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+		<link rel="stylesheet" href="{% static "css/materialize.min.css" %}">
+		<link rel="stylesheet" href="{% static "css/style.css" %}">
+		<script src="{% static "js/jquery-3.2.1.min.js" %}"></script>
+		<script src="{% static "js/materialize.min.js" %}"></script>
+
+		<script src="{% static "js/script.js" %}"></script>
+	</head>
+
+	<body>
+
+		<ul id="slide-out" class="side-nav fixed">
+			<li><div class="user-view">
+		      <div class="background">
+						<img src="{% static "index.jpeg" %}">
+		      </div>
+		      <a href="/profile"><span class="white-text name">{{request.user.first_name}} {{request.user.last_name}}</span></a>
+		      <a href="/profile"><span class="white-text email">{{request.user.email}}</span></a>
+		    	</div>
+			</li>
+
+			<li><a href="/profile">Profile</a></li>
+			{% for item,url in menu.items %}
+				<li><a href="{{url}}">{{item}}</a></li>
+			{% endfor %}
+			<li><div class="divider"></div></li>
+			<li><a class="subheader">Actions</a></li>
+			<li><a class="waves-effect" href="/logout">Logout</a></li>
+		</ul>
+		<a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+
+		<main class="container center-align">
+			{% block body %}
+				
+			{% endblock %}
+		</main>
+	</body>
+</html>

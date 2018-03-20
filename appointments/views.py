@@ -37,8 +37,10 @@ def view(request):
     user = request.user
     if hasGroup(user, 'receptionist'):
         c['appointments'] = Appointment.objects.all()
-    else:
+    elif hasGroup(user, 'patient'):
         c['appointments'] = Appointment.objects.filter(patient=user)
+    elif hasGroup(user, 'doctor'):
+        c['appointments'] = Appointment.objects.filter(doctor=user)
     return render(request, 'appointments/view_all.html', c)
 
 

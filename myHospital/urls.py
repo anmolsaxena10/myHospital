@@ -21,7 +21,7 @@ from loginmodule.views import login, logout
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/', include('home.urls')),
-    path('profiles/', include('profiles.urls')),
+    path('profile/', include('profiles.urls')),
     path('appointments/', include('appointments.urls')),
 	path('login/', login),
     path('logout/', logout),

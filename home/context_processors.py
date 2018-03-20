@@ -6,20 +6,18 @@ def hasGroup(user, groupName):
 
 def menu_processor(request):
     menu = {}
-    menu['Profile'] = ''
-    menu['Logout'] = ''
     user = request.user
     if hasGroup(user, 'doctor'):
-        menu['Appointment'] = ''
+        menu['Appointment'] = '/appointments'
         menu['MyCases'] = ''
     elif hasGroup(user, 'patient'):
         menu['Reports'] = ''
-        menu['Appointment'] = ''
+        menu['Appointment'] = '/appointments'
         menu['Medication'] = ''
         menu['Bills'] = ''
     elif hasGroup(user, 'receptionist'):
         menu['NewPatient'] = ''
-        menu['ManageAppointments'] = ''
+        menu['ManageAppointments'] = '/appointments'
         menu['GenerateCase'] = ''
         menu['Bills'] = ''
     elif hasGroup(user, 'lab_attendant'):
