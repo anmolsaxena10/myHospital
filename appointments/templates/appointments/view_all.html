@@ -1,6 +1,11 @@
 {% extends "home/base.html" %}
 
+{% block title %}Appointments{% endblock %}
+
 {% block body %}
+
+<h1>My Appointments</h1>
+
 {% for appointment in appointments %}
   {{appointment.patient.username}} - {{appointment.doctor.username}} - {{appointment.receptionist.username}} - {{appointment.appointment_time}}<br>
 {% endfor %}

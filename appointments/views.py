@@ -11,11 +11,14 @@ from home.context_processors import hasGroup
 #CREATE
 @login_required
 def book(request):
-    c = {}
-    c.update(csrf(request))
-    c['patients'] = User.objects.filter(groups__name='patient')
-    c['doctors'] = User.objects.filter(groups__name='doctor')
-    return render(request, 'appointments/book_appointment.html', c)
+    user = request.user
+    if hasGroup(user, 'receptionist'):
+        c = {}
+        c.update(csrf(request))
+        c['patients'] = User.objects.filter(groups__name='patient')
+        c['doctors'] = User.objects.filter(groups__name='doctor')
+        return render(request, 'appointments/book_appointment.html', c)
+    return HttpResponseRedirect('home/')
 
 @login_required
 def doBook(request):

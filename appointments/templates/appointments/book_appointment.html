@@ -1,15 +1,39 @@
-<form action='/appointments/do_book' method="POST">{%csrf_token%}
-  <select name='doctor'>
-    {% for doctor in doctors %}
-    <option value='{{doctor.username}}'>{{doctor.username}}</option>
-    {% endfor %}
-  </select>
-<br>
-  <select name='patient'>
-    {% for patient in patients %}
-      <option value='{{patient.username}}'>{{patient.username}}</option>
-    {% endfor %}
-  </select><br>
-  <input type='date' name='appointment_date'><input type='time' name='appointment_time'>
-  <br><input type='submit'>
-</form>
+{% extends 'home/base.html' %}
+
+{% block title %}Book Appointment{% endblock %}
+
+{% block body %}
+<h2>Book Appointment</h2>
+<div class="row">
+  <form class="col s12" action='/appointments/do_book/' method="POST">
+    {%csrf_token%}
+    <div class="row">
+      <div class="input-field col s6">
+        <select name="doctor" id="doctor" class="validate" required>
+          {% for doctor in doctors %}
+          <option value="{{doctor.username}}">{{doctor.username}}</option>
+          {% endfor %}
+        </select>
+        <label for="doctor" >Doctor</label>
+      </div>
+      <div class="input-field col s6">
+        <select name="patient" id="patient" class="validate" required>
+          {% for patient in patients %}
+            <option value='{{patient.username}}'>{{patient.username}}</option>
+          {% endfor %}
+        </select>
+        <label for="doctor" >Patient</label>
+      </div>
+      <div class="input-field col s6">
+        <input type="date" name='appointment_date'>
+        <label for="appointment_date" class="active">Date</label>
+      </div>
+      <div class="input-field col s6">
+        <input type="time" name='appointment_time'>
+        <label for="appointment_time" class="active">Time</label>
+      </div>
+      <button type="submit" class="btn">Book</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
