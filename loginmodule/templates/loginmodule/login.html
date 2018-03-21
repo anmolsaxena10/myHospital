@@ -19,11 +19,23 @@
 	<body>
     <div class="container center-align">
       <h1>Login</h1>
-      <form action="/loginmodule/auth" method="POST">{% csrf_token %}
-        Username <input type="text" name="username">
-        Password <input type="password" name="password">
-        <button type="submit" class="btn">Login</button>
-      </form>
+			<div class="row">
+				<form action="/loginmodule/auth" method="POST" class="col s12">{% csrf_token %}
+					<div class="row">
+						<div class="input-field col s6 offset-s3">
+		        	<input type="text" name="username" id="username" class="validate">
+							<label for="username">Username</label>
+						</div>
+						<div class="input-field col s6 offset-s3">
+		        	<input type="password" name="password" class="validate" id="password">
+							<label for="password">Password</label>
+						</div>
+						<div class="input-field col s6 offset-s3">
+		        	<button type="submit" class="btn">Login</button>
+						</div>
+					</div>
+      	</form>
+			</div>
     </div>
 
 </body>

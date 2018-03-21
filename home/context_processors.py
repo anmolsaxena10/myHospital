@@ -16,7 +16,7 @@ def menu_processor(request):
         menu['Medication'] = ''
         menu['Bills'] = ''
     elif hasGroup(user, 'receptionist'):
-        menu['NewPatient'] = ''
+        menu['NewPatient'] = '/profile/register'
         menu['ManageAppointments'] = '/appointments'
         menu['GenerateCase'] = ''
         menu['Bills'] = ''

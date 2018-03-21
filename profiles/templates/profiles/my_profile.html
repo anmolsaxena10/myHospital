@@ -1,6 +1,19 @@
 {% extends "home/base.html" %}
 
+{% block title %}Profile{% endblock %}
+
 {% block body %}
-{{request.user.username}}
-{{request.user.password}}
+<h1>Profile</h1>
+
+Name {{request.user.first_name}} {{request.user.first_name}}<br>
+Username {{request.user.username}}<br>
+Email {{request.user.email}}<br>
+
+{% if isPatient %}
+  Contact No {{request.user.patient.contact_no}}<br>
+  Address {{request.user.patient.address}}<br>
+  Blood Group {{request.user.patient.blood_group}}<br>
+  Dob {{request.user.patient.dob}}<br>
+{% endif %}
+
 {% endblock %}

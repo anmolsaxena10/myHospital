@@ -1,10 +1,55 @@
-<form action='/profiles/do_register/' method='POST'>
-  {% csrf_token %}
-  Username: <input type="text" name="username">
-  Password: <input type="password" name="password">
-  Contact: <input type="number" name="contact_no">
-  Address: <input type="text" name="address">
-  DOB: <input type="date" name="dob">
-  Blood: <input type="text" name="blood_group">
-  <input type="submit">
-</form>
+{% extends "home/base.html" %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+<h2>Register Patient</h2>
+<div class="row">
+  <form class="col s12" action='/profile/do_register/' method='POST'>
+    {% csrf_token %}
+    <div class="row">
+      <div class="input-field col s6">
+        <input type="text" name="first_name" id="first_name" class="validate" required>
+        <label for="first_name" >First Name</label>
+      </div>
+      <div class="input-field col s6">
+        <input type="text" name="last_name" id="last_name" class="validate" required>
+        <label for="last_name" >Last Name</label>
+      </div>
+      <div class="input-field col s12">
+        <input type="text" name="username" id="username" class="validate" required>
+        <label for="username" >Username</label>
+      </div>
+      <div class="input-field col s6">
+        <input type="password" name="password1" id="password1" class="validate" required>
+        <label for="password1" >Password</label>
+      </div>
+      <div class="input-field col s6">
+        <input type="password" name="password2" id="password2" class="validate" required>
+        <label for="password2" >Confirm Password</label>
+      </div>
+      <div class="input-field col s6">
+        <input type="text" name="contact_no" id="contact_no" class="validate" required>
+        <label for="contact_no" >Contact Number</label>
+      </div>
+      <div class="input-field col s6">
+        <input type="email" name="email" id="email" class="validate" required>
+        <label for="email" >Email</label>
+      </div>
+      <div class="input-field col s12">
+        <textarea name="address" id="address" class="materialize-textarea" required></textarea>
+        <label for="address" >Address</label>
+      </div>
+      <div class="input-field col s6">
+        <input type="date" name="dob" id="dob" required>
+        <label for="dob" class="active">Birthdate</label>
+      </div>
+      <div class="input-field col s6">
+        <input type="text" name="blood_group" id="blood_group" class="validate" required>
+        <label for="blood_group" >Blood Group</label>
+      </div>
+      <button type="submit" class="btn" >Submit</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
