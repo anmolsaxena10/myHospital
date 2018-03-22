@@ -9,18 +9,19 @@ def menu_processor(request):
     user = request.user
     if hasGroup(user, 'doctor'):
         menu['Appointment'] = '/appointments'
-        menu['MyCases'] = ''
+        menu['MyCases'] = '/case'
     elif hasGroup(user, 'patient'):
         menu['Reports'] = ''
         menu['Appointment'] = '/appointments'
         menu['Medication'] = ''
         menu['Bills'] = ''
+        menu['MyCases'] = '/case'
     elif hasGroup(user, 'receptionist'):
         menu['NewPatient'] = '/profile/register'
         menu['ManageAppointments'] = '/appointments'
         menu['NewAppointment'] = '/appointments/book'
-        menu['GenerateCase'] = ''
         menu['Bills'] = ''
+        menu['GenerateCase'] = '/case/generate'
     elif hasGroup(user, 'lab_attendant'):
         menu['Reports'] = ''
         menu['GenerateReport'] = ''

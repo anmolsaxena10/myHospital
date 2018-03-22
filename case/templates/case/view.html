@@ -1,0 +1,12 @@
+{% extends "home/base.html" %}
+
+{% block title %}Cases{% endblock %}
+
+{% block body %}
+
+<h1>My Cases</h1>
+
+{% for case in cases %}
+  {{case.patient.username}} - {{case.receptionist.username}} - {{case.description}} - {{case.filed_date}} - {{case.closed_date}}<br>
+{% endfor %}
+{% endblock %}

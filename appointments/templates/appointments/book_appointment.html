@@ -22,7 +22,15 @@
             <option value='{{patient.username}}'>{{patient.username}}</option>
           {% endfor %}
         </select>
-        <label for="doctor" >Patient</label>
+        <label for="patient" >Patient</label>
+      </div>
+      <div class="input-field col s12">
+        <select name="case" id="case" class="validate" required>
+          {% for case in cases %}
+            <option value='{{case.pk}}'>{{case.description}}</option>
+          {% endfor %}
+        </select>
+        <label for="case" >Case</label>
       </div>
       <div class="input-field col s6">
         <input type="date" name='appointment_date'>

@@ -6,6 +6,7 @@ from django.contrib.auth.models import User, Group
 from .models import Appointment
 from datetime import datetime
 from home.context_processors import hasGroup
+from case.models import case
 # Create your views here.
 
 #CREATE
@@ -17,8 +18,9 @@ def book(request):
         c.update(csrf(request))
         c['patients'] = User.objects.filter(groups__name='patient')
         c['doctors'] = User.objects.filter(groups__name='doctor')
+        c['cases'] = case.objects.all()
         return render(request, 'appointments/book_appointment.html', c)
-    return HttpResponseRedirect('home/')
+    return HttpResponseRedirect('/home')
 
 @login_required
 def doBook(request):
@@ -26,9 +28,10 @@ def doBook(request):
     if hasGroup(user, 'receptionist'):
         patient = User.objects.get(username=request.POST.get('patient', ''))
         doctor = User.objects.get(username=request.POST.get('doctor', ''))
+        c = case.objects.get(pk=int(request.POST.get('case', '')))
         appointment_time = request.POST.get('appointment_date')+'T'+request.POST.get('appointment_time')
         appointment_time = datetime(*[int(v) for v in appointment_time.replace('T', '-').replace(':', '-').split('-')])
-        appointment = Appointment(patient=patient, doctor=doctor, receptionist=request.user, appointment_time=appointment_time)
+        appointment = Appointment(patient=patient, doctor=doctor, receptionist=request.user, case=c, appointment_time=appointment_time)
         appointment.save()
     return HttpResponseRedirect('/home')
 

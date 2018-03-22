@@ -1,0 +1,26 @@
+{% extends 'home/base.html' %}
+{% block title %}Generate Case{% endblock %}
+
+{% block body %}
+<h2>Generate Case</h2>
+<div class="row">
+  <form class="col s12" action='/case/do_generate/' method="POST">
+    {%csrf_token%}
+    <div class="row">
+      <div class="input-field col s12">
+        <select name="patient" id="patient" class="validate" required>
+          {% for patient in patients %}
+          <option value='{{patient.username}}'>{{patient.username}}</option>
+          {% endfor %}
+        </select>
+        <label for="patient" >Patient</label>
+      </div>
+      <div class="input-field col s12">
+        <textarea name="description" id="description" class="materialize-textarea" required></textarea>
+        <label for="description" >Description</label>
+      </div>
+      <button type="submit" class="btn">Generate</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
