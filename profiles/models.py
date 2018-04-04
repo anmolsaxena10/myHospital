@@ -8,3 +8,6 @@ class Patient(models.Model):
     address = models.CharField(max_length=200)
     dob = models.DateField()
     blood_group = models.CharField(max_length=3)
+
+    def __str__(self):
+        return self.user.username

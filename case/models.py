@@ -8,3 +8,6 @@ class case(models.Model):
 	description = models.CharField(max_length=500, default=None)
 	filed_date = models.DateField()
 	closed_date = models.DateField(default=None, null=True)
+
+	def __str__(self):
+		return self.patient.username + ' having ' + self.description

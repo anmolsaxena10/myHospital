@@ -11,3 +11,6 @@ class bill(models.Model):
 	quantity = models.IntegerField()
 	bill_date = models.DateField()
 	bill_details = models.CharField(max_length=200)
+
+	def __str__(self):
+		return self.case.patient

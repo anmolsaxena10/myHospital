@@ -9,3 +9,6 @@ class Appointment(models.Model):
 	doctor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='appointment_doctor')
 	case = models.ForeignKey(case, on_delete=models.CASCADE, related_name='appointment_case')
 	appointment_time = models.DateTimeField()
+
+	def __str__(self):
+		return self.patient.username + ' with ' + self.doctor.username
