@@ -38,7 +38,7 @@ def view(request):
     elif hasGroup(user, 'patient'):
         c['cases'] = case.objects.filter(patient=user)
     elif hasGroup(user, 'doctor'):
-        c['cases'] = Appointment.objects.filter(doctor=user).case
+        c['cases'] = [appointment.case for appointment in Appointment.objects.filter(doctor=user)]
     return render(request, 'case/view.html', c)
 
 #UPDATE
@@ -53,4 +53,7 @@ def doChange(request):
 #DELETE
 @login_required
 def delete(request, id):
-    pass
+    user = request.user
+    if hasGroup(user, 'receptionist'):
+        case.objects.get(id=id).delete()
+    return HttpResponseRedirect('/home')

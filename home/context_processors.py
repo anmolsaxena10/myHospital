@@ -11,7 +11,7 @@ def menu_processor(request):
         menu['Appointment'] = '/appointments'
         menu['MyCases'] = '/case'
     elif hasGroup(user, 'patient'):
-        menu['Reports'] = ''
+        menu['Reports'] = '/reports'
         menu['Appointment'] = '/appointments'
         menu['Medication'] = ''
         menu['Bills'] = ''
@@ -23,8 +23,8 @@ def menu_processor(request):
         menu['Bills'] = ''
         menu['GenerateCase'] = '/case/generate'
     elif hasGroup(user, 'lab_attendant'):
-        menu['Reports'] = ''
-        menu['GenerateReport'] = ''
+        menu['Reports'] = '/reports'
+        menu['GenerateReport'] = '/reports/generate'
     elif hasGroup(user, 'inventory_manager'):
         menu['AllStock'] = ''
         menu['StockDetails'] = ''

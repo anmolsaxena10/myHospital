@@ -10,7 +10,7 @@ class items(models.Model):
 	description = models.CharField(max_length=100)
 
 class stock(models.Model):
-	item_name = models.ForeignKey(items, on_delete=models.CASCADE, related_name='stock_item')
+	item = models.ForeignKey(items, on_delete=models.CASCADE, related_name='stock_item')
 	quantity = models.IntegerField()
 	purchase_date = models.DateField()
 	expiry_date = models.DateField()

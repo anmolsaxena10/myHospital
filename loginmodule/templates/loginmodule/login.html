@@ -23,11 +23,13 @@
 				<form action="/loginmodule/auth" method="POST" class="col s12">{% csrf_token %}
 					<div class="row">
 						<div class="input-field col s6 offset-s3">
+							<i class="material-icons prefix">account_circle</i>
 		        	<input type="text" name="username" id="username" class="validate">
 							<label for="username">Username</label>
 						</div>
 						<div class="input-field col s6 offset-s3">
-		        	<input type="password" name="password" class="validate" id="password">
+							<i class="material-icons prefix">vpn_key</i>
+							<input type="password" name="password" class="validate" id="password">
 							<label for="password">Password</label>
 						</div>
 						<div class="input-field col s6 offset-s3">

@@ -1,0 +1,12 @@
+{% extends "home/base.html" %}
+
+{% block title %}Reports{% endblock %}
+
+{% block body %}
+
+<h1>My Reports</h1>
+
+{% for report in reports %}
+  {{report.case.patient.username}} - {{report.lab_attendant.username}} - {{report.description}} - {{report.case.description}} - {{report.generated_date}}<br>
+{% endfor %}
+{% endblock %}

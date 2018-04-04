@@ -8,5 +8,6 @@ class bill(models.Model):
 	case = models.ForeignKey(case, on_delete=models.CASCADE, related_name='bill_case')
 	ammount = models.IntegerField()
 	item = models.ForeignKey(items, on_delete=models.CASCADE, related_name='bill_item')
+	quantity = models.IntegerField()
 	bill_date = models.DateField()
 	bill_details = models.CharField(max_length=200)
