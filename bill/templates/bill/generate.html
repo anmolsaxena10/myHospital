@@ -1,8 +1,8 @@
 {% extends 'home/base.html' %}
 {% block title %}Medicine{% endblock %}
-
+{% block heading %}Medicine{% endblock %}
 {% block body %}
-<h2>Medicine</h2>
+
 <div class="row">
   <form class="col s12" action='/bill/do_generate/' method="POST">
     {%csrf_token%}

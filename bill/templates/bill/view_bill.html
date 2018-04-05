@@ -1,29 +1,90 @@
 {% extends 'home/base.html' %}
 {% block title %}Bills{% endblock %}
+{% block heading %}Bills{% endblock %}
 {% block body %}
-  <h2>Bills</h2>
+
+<div class="container">
   {% if selectPatient %}
   <form action="/bill/" method="POST">{% csrf_token %}
-    <div class="input-field col s6">
+    <div class="input-field col s12">
       <select name="patient" id="patient" class="validate" required>
         {% for patient in patients %}
           <option value='{{patient.id}}'>{{patient.username}}</option>
         {% endfor %}
       </select>
-      <label for="patient" >Patient</label>
+      <label for="patient">Patient</label>
+      <!--<input type="text" id="autocomplete-patient" class="autocomplete-patient" name="patient">
+      <label for="autocomplete-patient">Patient</label>-->
     </div>
     <button type="submit" class="btn">View Bills</button>
   </form>
+  <!--{% if patients %}<div id="patient-data" hidden>{% for patient in patients %}"{{patient.id}}":null, {% endfor %}</div>{% endif %}-->
   {% else %}
     <form action="/bill/pay/" method="POST">{% csrf_token %}
-      {% for bill in bills %}
+
+        <!--{% if not isPatient %}
         <input type="checkbox" class="filled-in" id="filled-in-box" name="ids" checked="unchecked" value="{{bill.id}}" />
+        {% endif %}
         <label for="filled-in-box">
-          {{bill.case}} - {{bill.ammount}} - {{bill.item}} - {{bill.quantity}} - {{bill.bill_date}} - {{bill.bill_details}} - {{bill.is_paid}}
+
         </label>
-        <br>
-      {% endfor %}
+      {% if not isPatient %}
       <button type="submit" class="btn">Pay</button>
+      {% endif %}-->
+      <ul class="collapsible popout" data-collapsible="accordion">
+        <li>
+          <div class="collapsible-header"><i class="material-icons">check_box_outline_blank</i>Pending Bills</div>
+          <div class="collapsible-body">
+            <ul class="collapsible popout" data-collapsible="accordion">
+              {% for bill in pendingBills %}
+              <li>
+                <div class="collapsible-header blue-grey">
+                  <i class="material-icons">
+                    assignment_turned_in
+                  </i>
+                  {{bill.item.item_name}} {{bill.quantity}}
+                </div>
+                <div class="collapsible-body">
+                  {% if not isPatient %}
+                  <input type="checkbox" class="filled-in" id="filled-in-box{{bill.id}}" name="ids" checked="unchecked" value="{{bill.id}}" />
+                  <label for="filled-in-box{{bill.id}}"><span>Select</span></label><br>
+                  {% endif %}
+                  <span>Item</span> <span class="blue-text text-lighten-1">{{bill.item.item_name}}</span><br>
+                  <span>Quantity</span> <span class="blue-text text-lighten-1">{{bill.quantity}}</span><br>
+                  <span>Date</span> <span class="blue-text text-lighten-1">{{bill.bill_date}}</span><br>
+                  <span>Bill Description</span> <span class="blue-text text-lighten-1">{{bill.bill_details}}</span><br>
+                  <span>Ammount</span> <span class="blue-text text-lighten-1">{{bill.ammount}}</span><br>
+                </div>
+              </li>
+              {% endfor %}
+              {% if not isPatient %}
+              <button type="submit" class="btn">Pay</button>
+              {% endif %}
+            </ul>
+          </div>
+        </li>
+        <li>
+          <div class="collapsible-header"><i class="material-icons">check_box</i>Paid Bills</div>
+          <div class="collapsible-body">
+            <ul class="collapsible popout" data-collapsible="accordion">
+              {% for bill in paidBills %}
+              <li>
+                <div class="collapsible-header blue-grey"><i class="material-icons">assignment_turned_in</i>{{bill.item.item_name}} {{bill.quantity}}</div>
+                <div class="collapsible-body">
+                  <span>Item</span> <span class="blue-text text-lighten-1">{{bill.item.item_name}}</span><br>
+                  <span>Quantity</span> <span class="blue-text text-lighten-1">{{bill.quantity}}</span><br>
+                  <span>Date</span> <span class="blue-text text-lighten-1">{{bill.bill_date}}</span><br>
+                  <span>Bill Description</span> <span class="blue-text text-lighten-1">{{bill.bill_details}}</span><br>
+                  <span>Ammount</span> <span class="blue-text text-lighten-1">{{bill.ammount}}</span><br>
+                </div>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </li>
+      </ul>
+
     </form>
   {% endif %}
+</div>
 {% endblock %}
