@@ -6,4 +6,4 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 @login_required()
 def home(request):
-    return render(request, 'home/base.html')
+    return render(request, 'home/base.html', {'message': 'Welcome to The Hospital Portal'})

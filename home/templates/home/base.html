@@ -7,8 +7,8 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="shortcut icon" type="image/png" href="{% static "favicon.png" %}"/>
-		 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
 		<link rel="stylesheet" href="{% static "css/materialize.min.css" %}">
 		<link rel="stylesheet" href="{% static "css/style.css" %}">
 		<script src="{% static "js/jquery-3.2.1.min.js" %}"></script>
@@ -19,9 +19,9 @@
 
 	<body>
 
-		{% if request.session.message %}
+		{% if message %}
 			<script>
-				Materialize.toast('{{ request.session.message }}', 3000);
+				Materialize.toast('{{ message }}', 3000);
 			</script>
 		{% endif %}
 
@@ -30,25 +30,51 @@
 		      <div class="background">
 						<img src="{% static "index.jpeg" %}">
 		      </div>
+					<a href="/profile"><img class="circle center" src="{% static 'account.png' %}"></a>
 		      <a href="/profile"><span class="white-text name">{{request.user.first_name}} {{request.user.last_name}}</span></a>
 		      <a href="/profile"><span class="white-text email">{{request.user.email}}</span></a>
 		    	</div>
 			</li>
 
-			<li><a href="/profile">Profile</a></li>
+			<li><a class="waves-effect waves-grey" href="/profile">Profile</a></li>
 			{% for item,url in menu.items %}
-				<li><a href="{{url}}">{{item}}</a></li>
+				<li><a class="waves-effect waves-grey" href="{{url}}">{{item}}</a></li>
 			{% endfor %}
 			<li><div class="divider"></div></li>
 			<li><a class="subheader">Actions</a></li>
 			<li><a class="waves-effect" href="/logout">Logout</a></li>
 		</ul>
-		<a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
 
-		<main class="container center-align">
-			{% block body %}
-				<h1>Welcome To Hospital Portal</h1>
-			{% endblock %}
+		<main class="center-align">
+			<nav>
+	    	<div class="nav-wrapper blue-grey darken-3">
+					<a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+					<a href="#" class="brand-logo center">{% block heading %}Hospital Portal{% endblock %}</a>
+
+				</div>
+			</nav>
+			<div class="container">
+				{% block body %}
+
+				{% endblock %}
+			</div>
 		</main>
+
+
+		<footer class="page-footer blue-grey darken-2">
+			<div class="container">
+        <div class="row">
+          <div class="col l12 s12 grey-text text-lighten-4">
+            <div class="center">Developed By</div>
+						<div class="center">Anmol Saxena | Dhwani Shah | Chinmay Shah</div>
+						<div class="center">
+							<a class="grey-text text-lighten-4" href="https://github.com/anmolsaxena10/myHospital" target="_blank"><i class="fab fa-github fa-2x" aria-hidden="true"></i></a>
+						</div>
+          </div>
+        </div>
+      </div>
+  	</footer>
+
+
 	</body>
 </html>
