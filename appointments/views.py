@@ -21,6 +21,7 @@ def book(request):
         c['doctors'] = User.objects.filter(groups__name='doctor')
         c['cases'] = case.objects.all()
         return render(request, 'appointments/book_appointment.html', c)
+    messages.add_message(request, messages.WARNING, 'Access Denied.')
     return HttpResponseRedirect('/home')
 
 @login_required

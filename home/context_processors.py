@@ -21,6 +21,7 @@ def menu_processor(request):
         menu['Manage Appointments'] = '/appointments'
         menu['New Appointment'] = '/appointments/book'
         menu['Bills'] = '/bill'
+        menu['Cases'] = '/case'
         menu['Generate Case'] = '/case/generate'
     elif hasGroup(user, 'lab_attendant'):
         menu['Reports'] = '/reports'
