@@ -17,6 +17,13 @@
 	</head>
 
 	<body>
+		{% if messages %}
+			{% for message in messages %}
+					<script>
+						Materialize.toast('{{ message }}', 3000);
+					</script>
+			{% endfor %}
+		{% endif %}
     <div class="container center-align">
       <h1>Login</h1>
 			<div class="row">
