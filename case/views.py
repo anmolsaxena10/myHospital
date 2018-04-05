@@ -38,6 +38,7 @@ def view(request):
     elif hasGroup(user, 'patient'):
         c['cases'] = case.objects.filter(patient=user)
     elif hasGroup(user, 'doctor'):
+        c['isDoctor'] = True
         c['cases'] = [appointment.case for appointment in Appointment.objects.filter(doctor=user)]
     return render(request, 'case/view.html', c)
 

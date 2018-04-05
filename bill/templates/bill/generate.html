@@ -1,0 +1,31 @@
+{% extends 'home/base.html' %}
+{% block title %}Medicine{% endblock %}
+
+{% block body %}
+<h2>Medicine</h2>
+<div class="row">
+  <form class="col s12" action='/bill/do_generate/' method="POST">
+    {%csrf_token%}
+    <input type="hidden" name="case" value="{{case.id}}">
+    <div class="row">
+      <div class="input-field col s12">
+        <select name="item" id="item" class="validate" required>
+          {% for item in items %}
+          <option value='{{item.id}}'>{{item.item_name}}</option>
+          {% endfor %}
+        </select>
+        <label for="item" >Medicine</label>
+      </div>
+      <div class="input-field col s12">
+        <input type="number" name="quantity" id="quantity" class="validate" required>
+        <label for="quantity" >Quantity</label>
+      </div>
+      <div class="input-field col s12">
+        <textarea name="description" id="description" class="materialize-textarea" required></textarea>
+        <label for="description" >Description</label>
+      </div>
+      <button type="submit" class="btn">Generate</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

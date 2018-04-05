@@ -1,0 +1,29 @@
+{% extends 'home/base.html' %}
+{% block title %}Bills{% endblock %}
+{% block body %}
+  <h2>Bills</h2>
+  {% if selectPatient %}
+  <form action="/bill/" method="POST">{% csrf_token %}
+    <div class="input-field col s6">
+      <select name="patient" id="patient" class="validate" required>
+        {% for patient in patients %}
+          <option value='{{patient.id}}'>{{patient.username}}</option>
+        {% endfor %}
+      </select>
+      <label for="patient" >Patient</label>
+    </div>
+    <button type="submit" class="btn">View Bills</button>
+  </form>
+  {% else %}
+    <form action="/bill/pay/" method="POST">{% csrf_token %}
+      {% for bill in bills %}
+        <input type="checkbox" class="filled-in" id="filled-in-box" name="ids" checked="unchecked" value="{{bill.id}}" />
+        <label for="filled-in-box">
+          {{bill.case}} - {{bill.ammount}} - {{bill.item}} - {{bill.quantity}} - {{bill.bill_date}} - {{bill.bill_details}} - {{bill.is_paid}}
+        </label>
+        <br>
+      {% endfor %}
+      <button type="submit" class="btn">Pay</button>
+    </form>
+  {% endif %}
+{% endblock %}
