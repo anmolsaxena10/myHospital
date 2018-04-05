@@ -1,9 +1,9 @@
 {% extends "home/base.html" %}
 
 {% block title %}Register{% endblock %}
+{% block heading %}Register Patient{% endblock %}
 
 {% block body %}
-<h2>Register Patient</h2>
 <div class="row">
   <form class="col s12" action='/profile/do_register/' method='POST'>
     {% csrf_token %}
@@ -29,7 +29,7 @@
         <label for="password2" >Confirm Password</label>
       </div>
       <div class="input-field col s6">
-        <input type="text" name="contact_no" id="contact_no" class="validate" required>
+        <input type="text" name="contact_no" id="contact_no" class="validate" maxlength="10" required>
         <label for="contact_no" >Contact Number</label>
       </div>
       <div class="input-field col s6">
@@ -41,14 +41,24 @@
         <label for="address" >Address</label>
       </div>
       <div class="input-field col s6">
-        <input type="date" name="dob" id="dob" required>
+        <input type="date" name="dob" id="dob" max="2018-04-05" required>
         <label for="dob" class="active">Birthdate</label>
       </div>
       <div class="input-field col s6">
-        <input type="text" name="blood_group" id="blood_group" class="validate" required>
+        <select name="blood_group" id="blood_group" class="validate" required>
+          <option value='O-'>O-</option>
+          <option value='O+'>O+</option>
+          <option value='A-'>A-</option>
+          <option value='A+'>A+</option>
+          <option value='B-'>B-</option>
+          <option value='B+'>B+</option>
+          <option value='AB-'>AB-</option>
+          <option value='AB+'>AB+</option>
+        </select>
         <label for="blood_group" >Blood Group</label>
       </div>
-      <button type="submit" class="btn" >Submit</button>
+
+      <button type="submit" class="btn blue-grey" >Register</button>
     </div>
   </form>
 </div>

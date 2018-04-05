@@ -19,10 +19,12 @@
 
 	<body>
 
-		{% if message %}
-			<script>
-				Materialize.toast('{{ message }}', 3000);
-			</script>
+		{% if messages %}
+			{% for message in messages %}
+					<script>
+						Materialize.toast('{{ message }}', 3000);
+					</script>
+			{% endfor %}
 		{% endif %}
 
 		<ul id="slide-out" class="side-nav fixed">
@@ -46,18 +48,15 @@
 		</ul>
 
 		<main class="center-align">
-			<nav>
-	    	<div class="nav-wrapper blue-grey darken-3">
-					<a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
-					<a href="#" class="brand-logo center">{% block heading %}Hospital Portal{% endblock %}</a>
+					<nav>
+			    	<div class="nav-wrapper blue-grey darken-3">
+							<a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+							<a href="#" class="brand-logo center">{% block heading %}Hospital Portal{% endblock %}</a>
+						</div>
+					</nav>
+					{% block body %}
 
-				</div>
-			</nav>
-			<div class="container">
-				{% block body %}
-
-				{% endblock %}
-			</div>
+					{% endblock %}
 		</main>
 
 

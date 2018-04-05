@@ -7,7 +7,7 @@
 <h1>My Cases</h1>
 
 {% for case in cases %}
-  <a href="/bill/generate/{{case.patient.id}}">Med</a>
+  <a href="/bill/generate/{{case.id}}">Med</a>
   {{case.patient.username}} - {{case.receptionist.username}} - {{case.description}} - {{case.filed_date}} - {{case.closed_date}}<br>
   {% if isDoctor %}
   {% endif %}

@@ -16,7 +16,7 @@ def generate(request, case_id):
     if hasGroup(request.user, 'doctor'):
         c = {}
         c.update(csrf(request))
-        c['case'] = case.objects.get(id=case_id)
+        c['case'] = case.objects.get(id=int(case_id))
         c['items'] = items.objects.all()
         return render(request, 'bill/generate.html', c)
     return HttpResponseRedirect('home/')
