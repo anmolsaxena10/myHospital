@@ -1,12 +1,25 @@
 {% extends "home/base.html" %}
 
 {% block title %}Appointments{% endblock %}
-
+{% block heading %}Appointments{% endblock %}
 {% block body %}
 
-<h1>My Appointments</h1>
-
-{% for appointment in appointments %}
-  {{appointment.id}}-{{appointment.patient.username}} - {{appointment.doctor.username}} - {{appointment.receptionist.username}} - {{appointment.appointment_time}}<br>
-{% endfor %}
+<div class="container">
+<ul class="collapsible popout" data-collapsible="accordion">
+  {% for appointment in appointments %}
+  <li>
+    <div class="collapsible-header blue-grey"><i class="material-icons">assignment_turned_in</i>{{appointment.patient.first_name}} with {{appointment.doctor.first_name}}</div>
+    <div class="collapsible-body">
+      <span>Patient</span> <span class="blue-text text-lighten-1">{{appointment.patient.first_name}} {{appointment.patient.last_name}}</span><br>
+      <span>Doctor</span> <span class="blue-text text-lighten-1">{{appointment.doctor.first_name}} {{appointment.doctor.last_name}}</span><br>
+      <span>Booked By</span> <span class="blue-text text-lighten-1">{{appointment.receptionist.first_name}} {{appointment.receptionist.last_name}}</span><br>
+      <span>Time</span> <span class="blue-text text-lighten-1">{{appointment.appointment_time}}</span>
+      {% if isReceptionist %}
+      <span class="right-align"><a href="/appointments/change_appointment/{{appointment.id}}" class="btn-floating btn-large halfway-fab waves-effect waves-light red right-align"><i class="material-icons">mode_edit</i></a></span>
+      {% endif %}
+    </div>
+  </li>
+  {% endfor %}
+</ul>
+</div>
 {% endblock %}

@@ -1,28 +1,30 @@
 {% extends 'home/base.html' %}
 
 {% block title %}Book Appointment{% endblock %}
-
+{% block heading %}Book Appointment{% endblock %}
 {% block body %}
-<h2>Book Appointment</h2>
 <div class="row">
   <form class="col s12" action='/appointments/do_book/' method="POST">
     {%csrf_token%}
     <div class="row">
       <div class="input-field col s6">
-        <select name="doctor" id="doctor" class="validate" required>
+        <!--<select name="doctor" id="doctor" class="validate" required>
           {% for doctor in doctors %}
           <option value="{{doctor.username}}">{{doctor.username}}</option>
           {% endfor %}
         </select>
-        <label for="doctor" >Doctor</label>
+        <label for="doctor" >Doctor</label>-->
+        <input type="text" id="autocomplete-doctor" class="autocomplete-doctor" name="doctor">
+        <label for="autocomplete-doctor">Doctor</label>
       </div>
       <div class="input-field col s6">
-        <select name="patient" id="patient" class="validate" required>
+        <!--<select name="patient" id="patient" class="validate" required>
           {% for patient in patients %}
             <option value='{{patient.username}}'>{{patient.username}}</option>
           {% endfor %}
-        </select>
-        <label for="patient" >Patient</label>
+        </select>-->
+        <input type="text" id="autocomplete-patient" class="autocomplete-patient" name="patient">
+        <label for="autocomplete-patient">Patient</label>
       </div>
       <div class="input-field col s12">
         <select name="case" id="case" class="validate" required>
@@ -30,18 +32,24 @@
             <option value='{{case.pk}}'>{{case.description}}</option>
           {% endfor %}
         </select>
-        <label for="case" >Case</label>
+        <!--<input type="text" id="autocomplete-case" class="autocomplete-case" name="case">
+        <label for="autocomplete-case" >Case</label>-->
       </div>
       <div class="input-field col s6">
-        <input type="date" name='appointment_date'>
+        <input type="date" name='appointment_date' id="appointment_date">
         <label for="appointment_date" class="active">Date</label>
       </div>
       <div class="input-field col s6">
-        <input type="time" name='appointment_time'>
+        <input type="time" name='appointment_time' min="09:30" max="20:30">
         <label for="appointment_time" class="active">Time</label>
       </div>
       <button type="submit" class="btn">Book</button>
     </div>
   </form>
 </div>
+
+{% if patients %}<div id="patient-data" hidden>{% for patient in patients %}"{{patient.username}}":null, {% endfor %}</div>{% endif %}
+{% if doctors %}<div id="doctor-data" hidden>{% for doctor in doctors %}"{{doctor.username}}":null, {% endfor %}</div>{% endif %}
+<!--{% if cases %}<div id="case-data" hidden>{% for case in cases %}"{{case.id}}":"{{case.description}}", {% endfor %}</div>{% endif %}-->
+
 {% endblock %}

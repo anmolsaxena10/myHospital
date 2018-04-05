@@ -7,6 +7,7 @@ from .models import Appointment
 from datetime import datetime
 from home.context_processors import hasGroup
 from case.models import case
+from django.contrib import messages
 # Create your views here.
 
 #CREATE
@@ -33,7 +34,10 @@ def doBook(request):
         appointment_time = datetime(*[int(v) for v in appointment_time.replace('T', '-').replace(':', '-').split('-')])
         appointment = Appointment(patient=patient, doctor=doctor, receptionist=request.user, case=c, appointment_time=appointment_time)
         appointment.save()
-    return HttpResponseRedirect('/home')
+        messages.add_message(request, messages.INFO, 'Appointment Successfully Booked')
+    else:
+        messages.add_message(request, messages.WARNING, 'Access Denied.')
+    return HttpResponseRedirect('/appointments/')
 
 
 #RETRIEVE
@@ -42,6 +46,7 @@ def view(request):
     c = {}
     user = request.user
     if hasGroup(user, 'receptionist'):
+        c['isReceptionist'] = True
         c['appointments'] = Appointment.objects.all()
     elif hasGroup(user, 'patient'):
         c['appointments'] = Appointment.objects.filter(patient=user)
@@ -56,8 +61,10 @@ def changeAppointment(request, id):
     user = request.user
     if hasGroup(user, 'receptionist'):
         c = {'appointment': Appointment.objects.get(pk=id)}
+        c['doctors'] = User.objects.filter(groups__name='doctor')
         c.update(csrf(request))
         return render(request, 'appointments/change.html', c)
+    messages.add_message(request, messages.WARNING, 'Access Denied.')
     return HttpResponseRedirect('/home')
 
 @login_required
@@ -65,15 +72,21 @@ def doChange(request):
     user = request.user
     if hasGroup(user, 'receptionist'):
         appointment = Appointment.objects.get(pk=int(request.POST.get('id')))
-        appointment.patient = User.objects.get(username=request.POST.get('patient', ''))
         appointment.doctor = User.objects.get(username=request.POST.get('doctor', ''))
-        #appointment.appointment_time = datetime(*[int(v) for v in request.POST.get('appointment_time').replace('T', '-').replace(':', '-').split('-')])
+        appointment_time = request.POST.get('appointment_date')+'T'+request.POST.get('appointment_time')
+        appointment_time = datetime(*[int(v) for v in appointment_time.replace('T', '-').replace(':', '-').split('-')])
+        appointment.appointment_time = appointment_time
+        appointment.receptionist = request.user
         appointment.save()
-    return HttpResponseRedirect('/home')
+    messages.add_message(request, messages.INFO, 'Appointment Successfully Changed')
+    return HttpResponseRedirect('/appointments/')
 
 #DELETE
 def delete(request, id):
     user = request.user
     if hasGroup(user, 'receptionist'):
         Appointment.objects.get(id=id).delete()
-    return HttpResponseRedirect('/home')
+        messages.add_message(request, messages.INFO, 'Appointment Successfully Deleted')
+    else:
+        messages.add_message(request, messages.WARNING, 'Access Denied.')
+    return HttpResponseRedirect('/appointments/')
