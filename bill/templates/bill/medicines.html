@@ -1,0 +1,23 @@
+{% extends "home/base.html" %}
+
+{% block title %}Medication{% endblock %}
+{% block heading %}Medication{% endblock %}
+{% block body %}
+
+<div class="container">
+<ul class="collapsible popout" data-collapsible="accordion">
+  {% for bill in bills %}
+  <li>
+    <div class="collapsible-header blue-grey"><i class="material-icons">assignment_turned_in</i>{{bill.item.item_name}}</div>
+    <div class="collapsible-body">
+      <span>Item</span> <span class="blue-text text-lighten-1">{{bill.item.item_name}}</span><br>
+      <span>Quantity</span> <span class="blue-text text-lighten-1">{{bill.quantity}}</span><br>
+      <span>Date</span> <span class="blue-text text-lighten-1">{{bill.bill_date}}</span><br>
+      <span>Description</span> <span class="blue-text text-lighten-1">{{bill.bill_details}}</span><br>
+      <span>Ammount</span> <span class="blue-text text-lighten-1">{{bill.ammount}}</span><br>
+    </div>
+  </li>
+  {% endfor %}
+</ul>
+</div>
+{% endblock %}

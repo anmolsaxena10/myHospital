@@ -9,4 +9,5 @@ urlpatterns = [
     path('do_generate/', doGenerate),
     url(r'delete/(?P<id>\d+)/', delete),
     path('pay/', pay),
+    path('medicines/', viewMedicine)
 ]
