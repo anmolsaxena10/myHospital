@@ -91,7 +91,7 @@ def viewMedicine(request):
 def pay(request):
     user = request.user
     if hasGroup(user, 'receptionist'):
-        ids = request.POST.get('ids','123')
+        ids = request.POST.getlist('ids','123')
         if type(ids)==type([]):
             for id in ids:
                 b = bill.objects.get(id=int(id))

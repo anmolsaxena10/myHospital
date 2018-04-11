@@ -29,7 +29,7 @@
       <div class="input-field col s12">
         <select name="case" id="case" class="validate" required>
           {% for case in cases %}
-            <option value='{{case.pk}}'>{{case.description}}</option>
+            <option value='{{case.pk}}'>{{case.patient.username}} for {{case.description}}</option>
           {% endfor %}
         </select>
         <!--<input type="text" id="autocomplete-case" class="autocomplete-case" name="case">

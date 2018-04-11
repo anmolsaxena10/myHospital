@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User, Group
 from .models import Appointment
 from datetime import datetime
+from django.utils import timezone
 from home.context_processors import hasGroup
 from case.models import case
 from django.contrib import messages
@@ -48,11 +49,14 @@ def view(request):
     user = request.user
     if hasGroup(user, 'receptionist'):
         c['isReceptionist'] = True
-        c['appointments'] = Appointment.objects.all()
+        c['appointments'] = Appointment.objects.filter(appointment_time__gte=timezone.now()).order_by('appointment_time')
     elif hasGroup(user, 'patient'):
-        c['appointments'] = Appointment.objects.filter(patient=user)
+        c['appointments'] = Appointment.objects.filter(patient=user, appointment_time__gte=timezone.now()).order_by('appointment_time')
     elif hasGroup(user, 'doctor'):
-        c['appointments'] = Appointment.objects.filter(doctor=user)
+        c['appointments'] = Appointment.objects.filter(doctor=user, appointment_time__gte=timezone.now()).order_by('appointment_time')
+    else:
+        messages.add_message(request, messages.WARNING, 'Access Denied.')
+        return HttpResponseRedirect('/home')
     return render(request, 'appointments/view_all.html', c)
 
 

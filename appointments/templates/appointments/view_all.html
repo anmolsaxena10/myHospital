@@ -3,12 +3,12 @@
 {% block title %}Appointments{% endblock %}
 {% block heading %}Appointments{% endblock %}
 {% block body %}
-
+<h5>Upcoming Appointments</h5>
 <div class="container">
 <ul class="collapsible popout" data-collapsible="accordion">
   {% for appointment in appointments %}
   <li>
-    <div class="collapsible-header blue-grey"><i class="material-icons">assignment_turned_in</i>{{appointment.patient.first_name}} with {{appointment.doctor.first_name}}</div>
+    <div class="collapsible-header blue-grey"><i class="material-icons">assignment_turned_in</i>{{appointment.patient.first_name}} with {{appointment.doctor.first_name}} on {{appointment.appointment_time}}</div>
     <div class="collapsible-body">
       <span>Patient</span> <span class="blue-text text-lighten-1">{{appointment.patient.first_name}} {{appointment.patient.last_name}}</span><br>
       <span>Doctor</span> <span class="blue-text text-lighten-1">{{appointment.doctor.first_name}} {{appointment.doctor.last_name}}</span><br>
@@ -22,4 +22,5 @@
   {% endfor %}
 </ul>
 </div>
+
 {% endblock %}

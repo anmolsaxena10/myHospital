@@ -1,8 +1,8 @@
 {% extends 'home/base.html' %}
 {% block title %}Generate Report{% endblock %}
-
+{% block heading %}Generate Report{% endblock %}
 {% block body %}
-<h2>Generate Report</h2>
+
 <div class="row">
   <form class="col s12" action='/reports/do_generate/' method="POST">
     {%csrf_token%}

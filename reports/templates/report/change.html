@@ -1,0 +1,36 @@
+{% extends 'home/base.html' %}
+
+{% block title %}Update Appointment{% endblock %}
+{% block heading %}Update Appointment{% endblock %}
+{% block body %}
+
+<div class="container">
+<div class="row">
+  <form class="col s12" action='/appointments/do_change/' method="POST">
+    {%csrf_token%}
+    <div class="row">
+      <input type='hidden' name='id' value='{{appointment.pk}}'>
+      <div class="input-field col s12">
+        <input type='text' name='patient' disabled="disabled" value='{{appointment.patient.username}}'>
+        <label for="patient" class="active">Patient</label>
+      </div>
+      <div class="input-field col s12">
+        <input type="text" id="autocomplete-doctor" class="autocomplete-doctor" name="doctor" value='{{appointment.doctor.username}}'>
+        <label for="autocomplete-doctor">Doctor</label>
+      </div>
+      <div class="input-field col s6">
+        <input type="date" name='appointment_date' id="appointment_date" required>
+        <label for="appointment_date" class="active">Date</label>
+      </div>
+      <div class="input-field col s6">
+        <input type="time" name='appointment_time' min="09:30" max="20:30" required>
+        <label for="appointment_time" class="active">Time</label>
+      </div>
+      <button type="submit" class="btn grey">Update</button>
+    </div>
+  </form>
+  <a href="/appointments/delete/{{appointment.pk}}"><button class="btn red">Delete</button></a>
+</div>
+</div>
+{% if doctors %}<div id="doctor-data" hidden>{% for doctor in doctors %}"{{doctor.username}}":null, {% endfor %}</div>{% endif %}
+{% endblock %}

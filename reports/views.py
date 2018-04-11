@@ -8,6 +8,7 @@ from datetime import datetime
 from home.context_processors import hasGroup
 from appointments.models import Appointment
 from case.models import case
+from django.contrib import messages
 
 # Create your views here.
 
@@ -19,6 +20,7 @@ def generate(request):
         c.update(csrf(request))
         c['cases'] = case.objects.all()
         return render(request, 'report/generate.html', c)
+    messages.add_message(request, messages.WARNING, 'Access Denied.')
     return HttpResponseRedirect('/home')
 
 @login_required
@@ -29,6 +31,9 @@ def doGenerate(request):
         generated_date = datetime.now()
         report = Report(case=c, lab_attendant=request.user, description=description, generated_date=generated_date)
         report.save()
+        messages.add_message(request, messages.INFO, 'Report Successfully Generated.')
+        return HttpResponseRedirect('/reports')
+    messages.add_message(request, messages.WARNING, 'Access Denied.')
     return HttpResponseRedirect('/home')
 
 #RETRIEVE
@@ -37,17 +42,26 @@ def view(request):
     c = {}
     user = request.user
     if hasGroup(user, 'lab_attendant'):
+        c['isLabAttendant'] = True
         c['reports'] = Report.objects.filter(lab_attendant=request.user)
     elif hasGroup(user, 'patient'):
         c['reports'] = [report for report in Report.objects.all() if report.case.patient==request.user]
     elif hasGroup(user, 'doctor'):
         c['cases'] = Appointment.objects.filter(doctor=user).case
+    else:
+        messages.add_message(request, messages.WARNING, 'Access Denied.')
+        return HttpResponseRedirect('/home')
     return render(request, 'report/view.html', c)
 
 #UPDATE
 @login_required
 def change(request, id):
-    pass
+    '''user = request.user
+    if hasGroup(user, 'lab_attendant'):
+
+        return render(request, 'report/change.html', c)
+    messages.add_message(request, messages.WARNING, 'Access Denied.')'''
+    return HttpResponseRedirect('/home')
 
 @login_required
 def doChange(request):

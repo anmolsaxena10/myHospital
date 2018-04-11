@@ -8,14 +8,14 @@ def menu_processor(request):
     menu = {}
     user = request.user
     if hasGroup(user, 'doctor'):
-        menu['Appointment'] = '/appointments'
-        menu['My Cases'] = '/case'
+        menu['Appointments'] = '/appointments'
+        menu['Cases'] = '/case'
     elif hasGroup(user, 'patient'):
         menu['Reports'] = '/reports'
-        menu['Appointment'] = '/appointments'
+        menu['Appointments'] = '/appointments'
         menu['Medication'] = '/bill/medicines'
         menu['Bills'] = '/bill'
-        menu['My Cases'] = '/case'
+        menu['Cases'] = '/case'
     elif hasGroup(user, 'receptionist'):
         menu['New Patient'] = '/profile/register'
         menu['Manage Appointments'] = '/appointments'
