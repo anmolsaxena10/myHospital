@@ -46,8 +46,6 @@ def view(request):
         c['reports'] = Report.objects.filter(lab_attendant=request.user)
     elif hasGroup(user, 'patient'):
         c['reports'] = [report for report in Report.objects.all() if report.case.patient==request.user]
-    elif hasGroup(user, 'doctor'):
-        c['cases'] = Appointment.objects.filter(doctor=user).case
     else:
         messages.add_message(request, messages.WARNING, 'Access Denied.')
         return HttpResponseRedirect('/home')
