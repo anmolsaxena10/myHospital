@@ -1,8 +1,11 @@
 from django.contrib.auth.models import Group
 
 def hasGroup(user, groupName):
-    group = Group.objects.get(name=groupName)
-    return True if group in user.groups.all() else False
+    try:
+        group = Group.objects.get(name=groupName)
+        return True if group in user.groups.all() else False
+    except:
+        return False
 
 def menu_processor(request):
     menu = {}
